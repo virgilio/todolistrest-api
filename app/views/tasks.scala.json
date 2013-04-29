@@ -1,0 +1,8 @@
+@(tasks: List[Task])
+@main("Todo list") {
+    @for(task <- tasks) {
+        {
+            "label" : @task.label            
+        }
+    }
+}
