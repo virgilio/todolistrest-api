@@ -45,9 +45,11 @@ public class Application extends Controller {
         // TODO enhance API policy about cross domain data
         allowCors();
         Form<Task> filledForm = taskForm.bindFromRequest();
+        System.out.println(Json.toJson(filledForm.get()));
         if(filledForm.hasErrors()) {
             // TODO make better error handling
-            return badRequest("{'error' : 'bad request'}");
+            return badRequest(filledForm.errorsAsJson());
+            //return badRequest("{'error' : 'bad request'}");
         } else {
             Task.create(filledForm.get());
             return ok(Json.toJson(filledForm.get()));
@@ -66,8 +68,9 @@ public class Application extends Controller {
         if(filledForm.hasErrors()) {
             return badRequest(filledForm.errorsAsJson());
         }
-        Task.update(filledForm.get(), id);
-        return ok(Json.toJson(filledForm.get()));
+        //Task.update(filledForm.get(), id);
+        filledForm.get().update(id);
+        return ok(Json.toJson(Task.find.byId(id)));
     }
 
     public static Result taskDone(Long id){

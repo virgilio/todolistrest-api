@@ -15,7 +15,6 @@ public class Task extends Model{
     
     @Id
     public Long id;
-    @Required
     public String label;
     public Boolean done = false;
     public Integer priority;
@@ -50,6 +49,7 @@ public class Task extends Model{
 
     public static void update(Task task, Long id){
         task.modified = new Date();
+        
         task.update(id);
     }
 
